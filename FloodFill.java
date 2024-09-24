@@ -1,11 +1,11 @@
 package com.fill.flood;
 
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.util.Scanner;
-import javax.imageio.ImageIO;
-import javax.swing.JFrame;
+import java.awt.image.BufferedImage; // manipulação de imagens
+import java.io.File; // manipulação de arquivos
+import java.io.IOException; // exceções de I/O
+import java.util.Scanner; // entrada de dados
+import javax.imageio.ImageIO; // leitura de imagens
+import javax.swing.JFrame; // janela gráfica
 
 public class FloodFill {
 
@@ -102,7 +102,7 @@ public class FloodFill {
 
                 try {
                     // Adicionar um pequeno atraso para visualização gradual
-                    Thread.sleep(10);
+                    Thread.sleep(1);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -137,7 +137,7 @@ public class FloodFill {
 
                 try {
                     // Adicionar um pequeno atraso para visualização gradual
-                    Thread.sleep(10);
+                    Thread.sleep(1);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

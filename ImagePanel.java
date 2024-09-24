@@ -6,7 +6,7 @@ import javax.swing.JPanel;
 
 class ImagePanel extends JPanel {
 
-    private static final long serialVersionUID = 7160211253556927600L;
+    private static final long serialVersionUID = 7160211253556927600L; // Número de série da classe
     private BufferedImage image; // Imagem a ser exibida no painel
 
     public ImagePanel(BufferedImage img) {
