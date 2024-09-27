@@ -2,19 +2,17 @@ package com.fill.flood;
 
 public class Pilha<T> {
 
-    private int top = 0; // Índice do topo da pilha
-    private T[] data; // Array para armazenar os elementos da pilha
-    private int size; // Tamanho da pilha
+    private int top = 0; 
+    private T[] data; 
+    private int size; 
 
     @SuppressWarnings("unchecked")
     public Pilha(int size) {
-        // Construtor que inicializa a pilha com um tamanho específico
         this.data = (T[]) new Object[size];
         this.size = size;
     }
 
     public void push(T data) {
-        // Adiciona um elemento ao topo da pilha
         if (isFull()) {
             throw new IllegalAccessError("Pilha cheia!");
         }
@@ -23,7 +21,6 @@ public class Pilha<T> {
     }
 
     public T pop() {
-        // Remove e retorna o elemento do topo da pilha
         if (isEmpty()) {
             throw new IllegalAccessError("Pilha já está vazia!");
         }
@@ -34,7 +31,6 @@ public class Pilha<T> {
     }
 
     public void clear() {
-        // Limpa todos os elementos da pilha
         for (int i = 0; i < this.data.length; i++) {
             this.data[i] = null;
         }
@@ -42,16 +38,13 @@ public class Pilha<T> {
     }
 
     public boolean isFull() {
-        // Verifica se a pilha está cheia
         return this.top == this.size;
     }
 
     public boolean isEmpty() {
-        // Verifica se a pilha está vazia
         return this.top == 0;
     }
 
-    // Getters e setters para os atributos da pilha
     public int getTop() {
         return top;
     }

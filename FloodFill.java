@@ -1,20 +1,19 @@
 package com.fill.flood;
 
-import java.awt.image.BufferedImage; // manipulação de imagens
-import java.io.File; // manipulação de arquivos
-import java.io.IOException; // exceções de I/O
-import java.util.Scanner; // entrada de dados
-import javax.imageio.ImageIO; // leitura de imagens
-import javax.swing.JFrame; // janela gráfica
+import java.awt.image.BufferedImage; 
+import java.io.File; 
+import java.io.IOException; 
+import java.util.Scanner; 
+import javax.imageio.ImageIO; 
+import javax.swing.JFrame;
 
 public class FloodFill {
 
-    private BufferedImage image; // Imagem a ser preenchida
-    private ImagePanel imagePanel; // Painel para exibir a imagem
-    public int op; // Opção de renderização (1 para pilha, 2 para fila)
+    private BufferedImage image; 
+    private ImagePanel imagePanel; 
+    public int op;
 
     public void readFile() {
-        // Lê a imagem do arquivo e inicia o processo de preenchimento
         try {
             Scanner scan = new Scanner(System.in);
             System.out.println("Escreva o caminho da sua img: ");
@@ -29,18 +28,14 @@ public class FloodFill {
             op = scan.nextInt();
 
             if (image != null) {
-                // Solicitar a cor ao usuário
                 String color = getColorFromUser();
 
-                // Exibir a imagem antes do preenchimento
                 showImage(image);
 
-                // Iniciar o flood fill em uma nova thread para não bloquear a UI
                 new Thread(() -> {
                     BufferedImage filledImage = floodFill(image, x, y, color);
 
                     if (filledImage != null) {
-                        // Atualizar a imagem final (opcional se já estiver atualizando durante o preenchimento)
                         imagePanel.setImage(filledImage);
                     } else {
                         System.out.println("Falha ao colorir a imagem.");
@@ -57,14 +52,12 @@ public class FloodFill {
     }
 
     public static String getColorFromUser() {
-        // Solicita a cor ao usuário
         Scanner scan = new Scanner(System.in);
         System.out.println("Escolha a cor, opções (red, green, blue):");
         return scan.next();
     }
 
     public BufferedImage floodFill(BufferedImage image, int x, int y, String color) {
-        // Realiza o preenchimento da imagem usando a cor especificada
         if (x < 0 || x >= image.getWidth() || y < 0 || y >= image.getHeight()) {
             System.out.println("Coordenadas fora dos limites da imagem.");
             return null;
@@ -78,7 +71,6 @@ public class FloodFill {
         }
 
         if (this.op == 1) {
-            // Usar pilha para o preenchimento
             Pilha<int[]> pilha = new Pilha<>(image.getWidth() * image.getHeight());
             pilha.push(new int[] { x, y });
 
@@ -97,11 +89,9 @@ public class FloodFill {
 
                 image.setRGB(cx, cy, newColor);
 
-                // Atualizar a interface gráfica (renderizar conforme o colorimento)
                 imagePanel.repaint();
 
                 try {
-                    // Adicionar um pequeno atraso para visualização gradual
                     Thread.sleep(1);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
@@ -113,7 +103,6 @@ public class FloodFill {
                 pilha.push(new int[] { cx, cy - 1 });
             }
         } else {
-            // Usar fila para o preenchimento
             Fila<int[]> fila = new Fila<>(image.getWidth() * image.getHeight());
             fila.add(new int[] { x, y });
 
@@ -132,11 +121,9 @@ public class FloodFill {
 
                 image.setRGB(cx, cy, newColor);
 
-                // Atualizar a interface gráfica (renderizar conforme o colorimento)
                 imagePanel.repaint();
 
                 try {
-                    // Adicionar um pequeno atraso para visualização gradual
                     Thread.sleep(1);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
@@ -152,7 +139,6 @@ public class FloodFill {
         return image;
     }
 
-    // Função auxiliar para converter a cor para hexadecimal
     public static int getColorHex(String color) {
         switch (color.toLowerCase()) {
         case "red":
@@ -168,18 +154,16 @@ public class FloodFill {
     }
 
     public void showImage(BufferedImage img) {
-        // Exibe a imagem em um JFrame
         JFrame frame = new JFrame("Exibição de Imagem");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(img.getWidth(), img.getHeight());
 
-        imagePanel = new ImagePanel(img); // Criar o painel com a imagem
-        frame.add(imagePanel); // Adicionar o painel ao JFrame
-        frame.setVisible(true); // Tornar a janela visível
+        imagePanel = new ImagePanel(img); 
+        frame.add(imagePanel); 
+        frame.setVisible(true); 
     }
 
     public static void main(String[] args) {
-        // Método principal para iniciar o programa
         new FloodFill().readFile();
     }
 }
